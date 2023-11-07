@@ -1,5 +1,5 @@
 import pytest
-from app.main import create_app
+from app import create_app
 
 
 @pytest.fixture()
@@ -9,8 +9,6 @@ def app():
     # other setup can go here
 
     yield app
-
-    # clean up / reset resources here
 
 
 @pytest.fixture()
