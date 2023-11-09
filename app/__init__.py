@@ -1,4 +1,4 @@
-from os import environ
+import os
 from datetime import datetime, timedelta
 
 from flask import Flask, jsonify, request, make_response
@@ -7,8 +7,9 @@ import jwt
 from utils.livecoding_decorators import user_has_access
 from app.fake_users_database import users_database
 
+from dotenv import load_dotenv
 
-SECRET_KEY = environ.get("SECRET_KEY")
+load_dotenv()
 
 
 def create_app():
@@ -21,7 +22,7 @@ def create_app():
     - GET /private: Private endpoint that requires a valid JWT token to be accessed
     """
     app = Flask(__name__)
-    app.config["SECRET_KEY"] = SECRET_KEY
+    app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 
     @app.route("/", methods=["GET"])
     def hello_world():
@@ -44,7 +45,7 @@ def create_app():
                         "iat": datetime.utcnow(),
                         "exp": datetime.utcnow() + timedelta(minutes=30),
                     },
-                    SECRET_KEY,
+                    os.getenv("SECRET_KEY"),
                 )
                 response = make_response(jsonify({"token": token}))
                 response.headers["Bearer"] = token
