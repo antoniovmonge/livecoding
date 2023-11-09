@@ -46,6 +46,17 @@ Para ejecutar los tests:
 pytest
 ```
 
+## Endpoints
+
+Una vez la aplicación esté en ejecución, se pueden probar los siguientes endpoints:
+
+Ruta | Método | Descripción
+---|---|---
+<http://127.0.0.1:5000/> | GET | Ruta abierta, devuelve un mensaje de bienvenida. (Hello World)
+<http://127.0.0.1:5000/login> | POST | Ruta para obtener un token. Se debe enviar un JSON con el usuario y la contraseña. Body: (user: test_user, password: pass1234)
+<http://127.0.0.1:5000/private> | GET | Ruta protegida para usuarios con un token válido. Se debe enviar el token en el header.
+
+
 ## Estructura del proyecto
 
 ```bash
