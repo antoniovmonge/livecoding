@@ -1,8 +1,11 @@
-from os import environ
+import os
 from flask import jsonify, request
 import jwt
 
-SECRET_KEY = environ.get("SECRET_KEY")
+
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 def user_has_access(func):
@@ -18,7 +21,7 @@ def user_has_access(func):
             return jsonify({"message": "Token is missing"}), 401
 
         try:
-            data = jwt.decode(token, SECRET_KEY, algorithms=["HS256"])
+            data = jwt.decode(token, os.getenv("SECRET_KEY"), algorithms=["HS256"])
         except:
             return (
                 jsonify({"message": "Token is invalid, you are not authorized"}),

@@ -11,12 +11,16 @@ Este es el código para la prueba de live coding del día 06.11.2023.
 - Crear una ruta `/login` con la que obtener un token en el header (JWT).
 - Crear una ruta `/privada` que esté protegida por un decorador creado desde 0 que comprueba la validez del token.
 
+
 ## Particularidades
 
 - El código principal de la aplicación se ha movido dentro de la carpeta `app` en el archivo `__init__.py` para facilitar la importación entre módulos y ejecutar el comando esperado por Flask `Flask run` sin añadir argumentos.
 - La aplicación de Flask se creó con un factory pattern.
 - Se ha añadido el archivo .env para la configuración de la aplicación (normalmente se incluiría en el .gitignore).
-- Se ha incluido un test para la ruta "publica" que comprueba que la respuesta es 200 y el contenido es el esperado.
+- TESTS incluidos:
+  - Test para la ruta "pública" que comprueba que la respuesta es `200` y el contenido es el esperado.
+  - Tests para el endpoint `\login` que comprueba que la respuesta es `200`  si las credenciales son válidas y se incluye el Bearer Token en el Header de la respuesta. Y que la respuesta es `401` si las credenciales son inválidas con el mensaje "Invalid credentials".
+  - Tests para el decorador que comprueba que la respuesta es `401` si no se incluye el token en el header, que la respuesta es `401` si el token es inválido y que la respuesta es `200` si el token es válido.
 - Las respuestas 401 obtenidas en la ruta privada son generadas por el decorador. Este se encuentra en la carpeta `utils`.
 - Se ha añadido un archivo `requirements.txt` para la instalación de las dependencias.
 - La "base de datos" NO es una propia base de datos. Para simplificar el código se ha utilizado una lista de diccionarios que se encuentra en `app.fake_users_database.py`.
